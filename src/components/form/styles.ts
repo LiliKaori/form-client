@@ -6,9 +6,13 @@ import styled from "styled-components"
 export const Container = styled.div`
   background-color: ${theme.colors.white};
   margin: auto;
-  max-width: 350px;
+  max-width: 700px;
   border-radius: 0.5em;
-  padding: 1em;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;  
 `
 export const Title = styled.h2`
   color: ${theme.colors.dark};

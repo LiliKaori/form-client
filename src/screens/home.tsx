@@ -1,3 +1,5 @@
+"use client"
+
 import { Form } from "@/components/form";
 import { Header } from "@/components/header";
 

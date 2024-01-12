@@ -1,10 +1,16 @@
-import { Home } from '@/pages/home'
+import { Home } from '@/screens/home'
 import GlobalStyles from '../styles/global'
+import { Poppins } from "next/font/google";
 
-
-  export default function App() {
+const poppins = Poppins({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  display: 'swap',
+})
+  
+export default function App() {
     return (
-      <main >
+      <main className={poppins.className}>
         <>          
           <GlobalStyles />
           <Home />

@@ -1,3 +1,4 @@
+"use client"
 import { Container, Text } from "./styles";
 
 export const Header = (function (){
