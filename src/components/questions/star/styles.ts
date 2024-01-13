@@ -18,3 +18,8 @@ export const Text = styled.p`
   font-size: ${theme.font.size.P};
 `
 
+export const StarGroup = styled.div`
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+`

@@ -8,26 +8,31 @@ export const Container = styled.div`
   width: 100%;
 `
 
+export const Title = styled.h2`
+  color: ${theme.colors.dark};
+  font-size: ${theme.font.size.GG};
+`
+
 export const Text = styled.p`
   color: ${theme.colors.text};
   font-size: ${theme.font.size.P};
 `
 
-export const Radio = styled.input.attrs({type: 'radio'})`
+export const Checkbox = styled.input.attrs({type: 'checkbox'})`
 
 `
 
 export const Label = styled.label`
   color: ${theme.colors.text};
   font-size: ${theme.font.size.P};
-  display: flex;
-  flex-direction: row;
+  display: flex;  
   align-items: center;
-  gap: 0.5em;
+  gap: 1em;
 `
 
-export const RadioGroup = styled.div`
+export const CheckboxGroup = styled.div`
   margin-top: 15px;
   display: flex;
-  gap: 20px
+  flex-direction: column;
+  
 `

@@ -1,11 +1,11 @@
-import { BoxRadios, Container, Label, Radio, Text, Title } from "./styles"
+import { Container, Label, Radio, RadioGroup, Text, Title } from "./styles"
 
 export const AssessmentQuestion = (function (){
   return(
     <Container>
       <Title>Título da pergunta radio deve ficar aqui</Title>      
       <Text>Descrição da segunda pergunta, para ajudar o entendimento do usuário.</Text>
-      <BoxRadios>
+      <RadioGroup>
         <Label htmlFor="1">
           <Radio id="1" name="nota"></Radio>
           <Text>1</Text>
@@ -46,7 +46,7 @@ export const AssessmentQuestion = (function (){
           <Radio id="10" name="nota"></Radio>
           <Text>10</Text>
         </Label>
-      </BoxRadios>
+      </RadioGroup>
       
 
       

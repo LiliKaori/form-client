@@ -1,11 +1,11 @@
-import { BoxRadios, Container, Label, Radio, Text } from "./styles"
+import { Container, Label, Radio, RadioGroup, Text } from "./styles"
 
 export const BinaryQuestion = (function (){
   return(
     <Container>
           
       <Text>Descrição da binária, para ajudar o entendimento do usuário.</Text>
-      <BoxRadios>
+      <RadioGroup>
         <Label htmlFor="yes">
           <Radio id="yes" name="binary"></Radio>
           <Text>Sim</Text>
@@ -15,7 +15,7 @@ export const BinaryQuestion = (function (){
           <Text>Não</Text>
         </Label>
         
-      </BoxRadios>
+      </RadioGroup>
       
 
       

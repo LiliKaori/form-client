@@ -13,20 +13,11 @@ export const Text = styled.p`
   font-size: ${theme.font.size.P};
 `
 
-export const Radio = styled.input.attrs({type: 'radio'})`
+export const Button = styled.button`
 
 `
 
-export const Label = styled.label`
-  color: ${theme.colors.text};
-  font-size: ${theme.font.size.P};
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5em;
-`
-
-export const RadioGroup = styled.div`
+export const ButtonGroup = styled.div`
   margin-top: 15px;
   display: flex;
   gap: 20px

@@ -31,7 +31,7 @@ export const Label = styled.label`
   gap: 0.5em;
 `
 
-export const BoxRadios = styled.div`
+export const RadioGroup = styled.div`
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
