@@ -1,8 +1,14 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Poppins } from 'next/font/google'
+import GlobalStyles from '../styles/global'
+import React from 'react'
 
 
-const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Form-client',
@@ -14,9 +20,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <GlobalStyles />
+      <body className={ poppins.className }>{children}</body>      
     </html>
   )
 }

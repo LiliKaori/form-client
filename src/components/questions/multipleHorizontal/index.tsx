@@ -1,20 +1,28 @@
+"use client"
+
 import { Button, ButtonGroup, Container, Text } from "./styles"
 
-export const MultipleHorizontalQuestion = (function (){
+type MultipleHorizontalProps = {
+  content: string;
+  mandatory: boolean;
+  answer?: number;
+  itens: {
+    value: number;
+    description: string;
+  }[];
+}
+
+export const MultipleHorizontalQuestion = (function ({content, mandatory, itens, answer=0}:MultipleHorizontalProps){
   return(
     <Container>
           
-      <Text>Descrição da pergunta múltiplo horizontal, para ajudar o entendimento do usuário.</Text>
+      <Text>{content}</Text>
       <ButtonGroup>
-        <Button>Opção 1</Button>
-        <Button>Opção 2</Button>
-        <Button>Opção 3</Button>
-        <Button>Opção 4</Button>
-        <Button>Opção 5</Button>
-        <Button>Opção 6</Button>
-        <Button>Opção 7</Button>
-        
-        
+        {itens.map((item, index)=>{
+          return(
+            <Button key={index} value={item.value}>{item.description}</Button>
+          )
+        })}
       </ButtonGroup>
       
 

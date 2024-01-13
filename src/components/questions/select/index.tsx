@@ -1,12 +1,28 @@
+"use client"
+
 import { Container, Option, Select } from "./styles"
 
-export const SelectQuestion = (function () {
+type SelectQuestionProps = {
+  content: string;
+  mandatory: boolean;
+  answer?: number;
+  itens: {
+    value: number;
+    description: string;
+  }[];
+}
+
+export const SelectQuestion = (function ({content,mandatory, itens, answer}: SelectQuestionProps) {
   return (
     <Container>
-      <Select>
-        <Option>Opção 1</Option>
-        <Option>Opção 2</Option>
-        <Option>Opção 3</Option>
+      <Select defaultValue={answer}>
+        <Option disabled>{content}</Option>
+        {itens.map((item, index) => {
+          return (
+            <Option key={index} value={item.value}>{item.description}</Option>
+          )
+        })}
+        
       </Select>
     </Container>
   )

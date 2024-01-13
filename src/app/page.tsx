@@ -1,23 +1,16 @@
-import { Home } from '@/screens/home'
-import GlobalStyles from '../styles/global'
-import { Poppins } from "next/font/google";
+"use client"
 
-const poppins = Poppins({
-  weight: ['400', '500'],
-  subsets: ['latin'],
-  display: 'swap',
-})
-  
-export default function App() {
-    return (
-      <main className={poppins.className}>
-        <>          
-          <GlobalStyles />
-          <Home />
-        </>
+import { Form } from "@/components/form";
+import { Header } from "@/components/header";
 
-      </main>
-    )
-  }
+export default function Home (){
+  return(
+    <>
+      <Header />
+      <Form />
+    </>
+  )
+
+}
 
 

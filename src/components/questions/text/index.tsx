@@ -1,11 +1,18 @@
+"use client"
+
 import { Container, Text, TextArea } from "./styles"
 
-export const TextQuestion = (function (){
-  return(
-    <Container>      
-      <Text>Descreva a questão de texto (opcional)</Text>
-      
-      <TextArea />
+type TextQuestionProps = {
+  content: string;
+  mandatory: boolean;
+}
+
+export const TextQuestion = (function ({ content, mandatory }: TextQuestionProps) {
+  return (
+    <Container>
+      <Text>{content}</Text>
+
+      <TextArea required={mandatory}/>
 
     </Container>
   )

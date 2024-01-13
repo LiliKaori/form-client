@@ -1,19 +1,31 @@
+"use client"
+
 import { theme } from "@/styles/theme"
 import { Container, StarGroup, Text, Title } from "./styles"
 import { Star } from '@phosphor-icons/react'
 
-export const StartQuestion = (function (){
-  return(
+
+type StarQuestionProps = {
+  content: string;
+  mandatory: boolean;
+  answer?: number;
+}
+
+export const StartQuestion = (function ({ content, mandatory, answer = 0 }: StarQuestionProps) {
+  const numberStar = 5;
+  const arrayStar : number[]= Array.from({ length: numberStar })
+
+  return (
     <Container>
       <Title>Título da pergunta star deve ficar aqui</Title>
-      <Text>Também é importante ter um espaço para o dono da loja colocar uma descrição da pergunta para ajudar o entendimento do usuário</Text>
-      <Text>Aqui vai ficar as estrelas</Text>
+      <Text>{content}</Text>
       <StarGroup>
-        <Star size={40} color={theme.colors.primary} weight="fill" />
-        <Star size={40} color={theme.colors.primary} weight="fill" />
-        <Star size={40} color={theme.colors.primary} weight="fill" />
-        <Star size={40} color={theme.colors.muted} weight="fill" />
-        <Star size={40} color={theme.colors.muted} weight="fill" />
+        {arrayStar.map((_, index) => {
+          return (            
+              <Star key={index} size={40} color={index < answer ? theme.colors.primary : theme.colors.muted} weight="fill" />
+          )
+        })}
+        
       </StarGroup>
 
     </Container>
