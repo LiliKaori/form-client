@@ -27,9 +27,18 @@ export const Button = (function ({ text, status }: ButtonProps) {
     } else {
       console.log(questions)
       questions.map((question, index)=>{
-        if (question.mandatory && question.answerValue == null || question.mandatory && question.answerArray == null){
-          console.log("Falta preencher pergunta número " + index)
+        console.log(question.mandatory, question.answerValue, question.answerArray?.length)
+        
+        if(question.typeQuestion == 6){
+          if (question.mandatory && question.answerArray == undefined || question.mandatory && question.answerArray?.length == 0) {
+            console.log("Falta preencher pergunta número " + index)
+          }
+        }else{
+          if (question.mandatory && question.answerValue == null) {
+            console.log("Falta preencher pergunta número " + index)
+          }
         }
+        
       })
       
     }

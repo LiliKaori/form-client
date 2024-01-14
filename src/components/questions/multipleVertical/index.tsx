@@ -2,7 +2,7 @@
 
 import { useForm } from "@/hooks/FormContext";
 import { Checkbox, CheckboxGroup, Container, Label, Text } from "./styles"
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 type MultipleVerticalProps = {
   content: string;  
@@ -20,13 +20,16 @@ export const MultipleVerticalQuestion = (function ({ content, itens, answer=[]}:
   function changeAnswerQuestion(event: ChangeEvent<HTMLInputElement>) {
     const { value } = event.target as HTMLInputElement
     const numberValue = parseInt(value, 10)
+    
     const newResponses = responses.includes(numberValue)
       ? responses.filter((response)=> response !==numberValue)
       : [...responses,numberValue]
-    
     setResponses(newResponses)
-    updateQuestion(content, 6, false, responses)
   }
+
+  useEffect(()=>{
+    updateQuestion(content, 6, false, responses);
+  }, [responses])
 
   return (
     <Container>
@@ -36,7 +39,7 @@ export const MultipleVerticalQuestion = (function ({ content, itens, answer=[]}:
         {itens.map((item, index) => {
           return (
             <Label key={index} htmlFor={"option_" + item.value}>
-              <Checkbox id={"option_" + item.value} value={item.value} onChange={(event: ChangeEvent<HTMLInputElement>) => changeAnswerQuestion(event)} defaultChecked={responses.includes(item.value)}></Checkbox>
+              <Checkbox id={"option_" + item.value} value={item.value} onChange={(event: ChangeEvent<HTMLInputElement>) => changeAnswerQuestion(event)} defaultChecked={answer.includes(item.value)}></Checkbox>
               <Text>{item.description}</Text>
             </Label>
           )

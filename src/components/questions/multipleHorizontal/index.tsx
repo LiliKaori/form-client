@@ -2,7 +2,7 @@
 
 import { useForm } from "@/hooks/FormContext";
 import { Button, ButtonGroup, Container, Text } from "./styles"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type MultipleHorizontalProps = {
   content: string;
@@ -23,8 +23,11 @@ export const MultipleHorizontalQuestion = (function ({content, itens, answer=[]}
       : [...responses, optionClicked]
 
     setResponses(newResponses)
-    updateQuestion(content, 6, true, responses)
   }
+
+  useEffect(() => {
+    updateQuestion(content, 6, true, responses);
+  }, [responses])
 
   return(
     <Container>

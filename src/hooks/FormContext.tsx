@@ -34,7 +34,7 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
 
     async function loadQuestions() {
       const { data } = await apiFrontTest.get(paths.list)
-      // console.log(data.itens)
+      console.log(data.itens)
       // console.log(data)
       if (!data.error) {
         setQuestions(data.itens)
@@ -48,11 +48,11 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
 
   const updateQuestion = (content: string, typeQuestion: number, horizontal:boolean|null=null, newAnswer?: number | string | number[]) => {
     questions.filter((question: QuestionProps) => {
+      console.log(typeof newAnswer == "number", newAnswer)
       if (question.content === content && question.typeQuestion === typeQuestion && question.horizontal === horizontal) {
         if (typeof newAnswer == "number" || typeof newAnswer == "string") {
           question.answerValue = newAnswer
         } else {
-          // console.log(newAnswer)
           question.answerArray = newAnswer
         }
 
