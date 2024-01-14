@@ -1,15 +1,24 @@
-import React, { createContext, useContext, useState } from "react";
+import { apiFrontTest } from "@/services/api";
+import { paths } from "@/services/paths";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-interface IForm {
-  id: number;
-  question: number;
-  answer: string;
+
+type QuestionProps = {
+  typeQuestion: number;
+  content: string;
+  mandatory: boolean;
+  answerValue?: number | string;
+  answerArray?: number[];
+  horizontal?: boolean;
+  itens: {
+    value: number;
+    description: string;
+  }[];
 }
 
-type FormContextType = {
-  forms: IForm[];
-  saveForm: (form: IForm) => void;
-  updateForm: (id: number) => void;
+type FormContextType = {  
+  questions: QuestionProps[];
+  updateQuestion: (content: string, typeQuestion: number, horizontal?:boolean| null, newAnswer?: number | string | number[] ) => void;
 }
 
 export const FormContext = createContext<FormContextType | null>(null)
@@ -19,45 +28,50 @@ interface ReactProps {
 }
 
 export const FormProvider: React.FC<ReactProps> = ({ children }) => {
-  // const form = {question: 1, answer: "responta aqui"}
-  const [forms, setForms] = useState<IForm[]>([
-    {
-      id: 1,
-      question: 1, answer: "responta aqui"
-    },
-    {
-      id: 2,
-      question: 2, answer: "outra responta"
-    }
-  ])
+  const [questions, setQuestions] = useState([])
 
-  const saveForm = (form: IForm) => {
-    const newForm: IForm = {
-      id: Math.random(),
-      question: form.question,
-      answer: form.answer,
-    }
-    setForms([...forms, newForm])
-  }
+  useEffect(() => {
 
-  const updateForm = (id: number) => {
-    forms.filter((form: IForm) => {
-      if (form.id === id) {
-        form.answer = "resposta alterada"
-        setForms([...forms])
+    async function loadQuestions() {
+      const { data } = await apiFrontTest.get(paths.list)
+      // console.log(data.itens)
+      // console.log(data)
+      if (!data.error) {
+        setQuestions(data.itens)
+      }
+
+    }
+    loadQuestions()
+
+  }, [])
+
+
+  const updateQuestion = (content: string, typeQuestion: number, horizontal:boolean|null=null, newAnswer?: number | string | number[]) => {
+    questions.filter((question: QuestionProps) => {
+      if (question.content === content && question.typeQuestion === typeQuestion && question.horizontal === horizontal) {
+        if (typeof newAnswer == "number" || typeof newAnswer == "string") {
+          question.answerValue = newAnswer
+        } else {
+          // console.log(newAnswer)
+          question.answerArray = newAnswer
+        }
+
+        setQuestions([...questions])
       }
     })
+    console.log(questions)
   }
 
+
   return (
-    <FormContext.Provider value={{forms, saveForm, updateForm}}>
+    <FormContext.Provider value={{ questions, updateQuestion }}>
       {children}
     </FormContext.Provider>
     // .Provider value= {{form}}></FormContext.Provider>
 
   )
 
-  
+
 }
 
 export const useForm = () => {

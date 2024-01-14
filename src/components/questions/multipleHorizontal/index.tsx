@@ -1,18 +1,31 @@
 "use client"
 
+import { useForm } from "@/hooks/FormContext";
 import { Button, ButtonGroup, Container, Text } from "./styles"
+import { useState } from "react";
 
 type MultipleHorizontalProps = {
   content: string;
-  mandatory: boolean;
-  answer?: number;
+  answer?: number[];
   itens: {
     value: number;
     description: string;
   }[];
 }
 
-export const MultipleHorizontalQuestion = (function ({content, mandatory, itens, answer=0}:MultipleHorizontalProps){
+export const MultipleHorizontalQuestion = (function ({content, itens, answer=[]}:MultipleHorizontalProps){
+  const [responses, setResponses] = useState<number[]>([...answer]);
+  const {updateQuestion} = useForm()
+
+  function changeAnswerQuestion(optionClicked :number) {
+    const newResponses = responses.includes(optionClicked)
+      ? responses.filter((response) => response !== optionClicked)
+      : [...responses, optionClicked]
+
+    setResponses(newResponses)
+    updateQuestion(content, 6, true, responses)
+  }
+
   return(
     <Container>
           
@@ -20,13 +33,10 @@ export const MultipleHorizontalQuestion = (function ({content, mandatory, itens,
       <ButtonGroup>
         {itens.map((item, index)=>{
           return(
-            <Button key={index} value={item.value}>{item.description}</Button>
+            <Button key={index} value={item.value} $selected={responses.includes(item.value)} onClick={()=>changeAnswerQuestion(item.value)}>{item.description} </Button>
           )
         })}
       </ButtonGroup>
-      
-
-      
 
     </Container>
   )

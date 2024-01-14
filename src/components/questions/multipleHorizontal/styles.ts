@@ -3,6 +3,10 @@
 import { theme } from "@/styles/theme";
 import styled from "styled-components";
 
+type ButtonProps = {
+  $selected: boolean;
+}
+
 export const Container = styled.div`
   background-color: transparent;  
   width: 100%;
@@ -13,11 +17,13 @@ export const Text = styled.p`
   font-size: ${theme.font.size.P};
 `
 
-export const Button = styled.button`
+export const Button = styled.button<ButtonProps>`
   border: 1px solid ${theme.colors.muted};
-  background-color: transparent;
+  background-color: ${props => props.$selected ? theme.colors.gray : "transparent"};
+  color: ${props => props.$selected ? theme.colors.white : theme.colors.dark};
   border-radius: 1.5em;
   padding: 0.5em 1em;
+
 `
 
 export const ButtonGroup = styled.div`

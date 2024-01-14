@@ -1,35 +1,48 @@
 "use client"
 
-import { Checkbox, CheckboxGroup, Container, Label, Text, Title } from "./styles"
+import { useForm } from "@/hooks/FormContext";
+import { Checkbox, CheckboxGroup, Container, Label, Text } from "./styles"
+import { ChangeEvent, useState } from "react";
 
 type MultipleVerticalProps = {
-  content: string;
-  mandatory: boolean;
+  content: string;  
   itens: {
     value: number;
     description: string;
   }[];
+  answer?: number[];
 }
 
-export const MultipleVerticalQuestion = (function ({content, mandatory, itens}: MultipleVerticalProps){
-  return(
+export const MultipleVerticalQuestion = (function ({ content, itens, answer=[]}: MultipleVerticalProps) {
+  const [responses, setResponses] = useState<number[]>([...answer])
+  const { updateQuestion } = useForm()
+
+  function changeAnswerQuestion(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target as HTMLInputElement
+    const numberValue = parseInt(value, 10)
+    const newResponses = responses.includes(numberValue)
+      ? responses.filter((response)=> response !==numberValue)
+      : [...responses,numberValue]
+    
+    setResponses(newResponses)
+    updateQuestion(content, 6, false, responses)
+  }
+
+  return (
     <Container>
-            
+
       <Text>{content}</Text>
       <CheckboxGroup>
-        {itens.map((item, index)=>{
-          return(
-            <Label key={index} htmlFor="1">
-              <Checkbox id="1" name="nota" value={item.value} required={mandatory}></Checkbox>
+        {itens.map((item, index) => {
+          return (
+            <Label key={index} htmlFor={"option_" + item.value}>
+              <Checkbox id={"option_" + item.value} value={item.value} onChange={(event: ChangeEvent<HTMLInputElement>) => changeAnswerQuestion(event)} defaultChecked={responses.includes(item.value)}></Checkbox>
               <Text>{item.description}</Text>
             </Label>
           )
         })}
-        
-      </CheckboxGroup>
-      
 
-      
+      </CheckboxGroup>
 
     </Container>
   )

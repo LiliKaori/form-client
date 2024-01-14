@@ -1,33 +1,38 @@
 "use client"
 
-import { useState } from "react";
+import { MouseEvent } from "react";
 import { Container, Label, Radio, RadioGroup, Text, Title } from "./styles"
+import { useForm } from "@/hooks/FormContext";
 
-type AssessmentQuestionProps = {
+type AssessmentQuestionProps = {  
   content: string;
-  mandatory: boolean;
-  answer?: number;
+  answer?: number | string;
 }
 
-export const AssessmentQuestion = (function ({ content, mandatory, answer = 0 }: AssessmentQuestionProps) {
-  const [response, setResponse] = useState(answer);
+export const AssessmentQuestion = (function ({ content, answer = 0 }: AssessmentQuestionProps) {  
+  const {updateQuestion} = useForm();
+
+  function changeAnswerQuestion(event: MouseEvent<HTMLInputElement>) {
+    const inputValue = parseInt((event.target as HTMLInputElement).value, 10)    
+    updateQuestion(content, 2, null, inputValue)
+  }
 
   const numberGrade = 10;
   const arrayGrade: number[] = Array.from({ length: numberGrade })
   return (
     <Container>
-      <Title>Título da pergunta radio deve ficar aqui</Title>
+      <Title>Título da pergunta de avaliação deve ficar aqui</Title>
       <Text>{content}</Text>
-      <RadioGroup>
+      <RadioGroup key={Math.random()}>
         {arrayGrade.map((_, index) => {
-          const grade = index + 1;
+          const grade: number = index + 1;
           return (
-            <>
-              <Label htmlFor={"option" + grade}>
-                <Radio key={grade} id={"option" + grade} name="grade" value={grade} checked={grade == response} required={mandatory} onClick={()=>setResponse(grade)}></Radio>
+            
+              <Label key={index} htmlFor={"option" + grade}>
+                <Radio id={"option" + grade} name="grade" value={grade} defaultChecked={grade == answer} onClick={(event: MouseEvent<HTMLInputElement>) => changeAnswerQuestion(event)}></Radio>
                 <Text>{grade}</Text>
               </Label>
-            </>    
+            
           )
         })}
       </RadioGroup>

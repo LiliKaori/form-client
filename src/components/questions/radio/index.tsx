@@ -1,20 +1,25 @@
 "use client"
 
-import { useState } from "react";
+import { MouseEvent } from "react";
 import { Container, Label, Radio, RadioGroup, Text } from "./styles"
+import { useForm } from "@/hooks/FormContext";
 
 type RadioQuestionProps = {
   content: string;
-  mandatory: boolean;
-  answer?: number;
+  answer?: number | string;
   itens: {
     value: number;
     description: string;
   }[];
 }
 
-export const RadioQuestion = (function ({ content, mandatory, itens, answer = 0 }: RadioQuestionProps) {
-  const [response, setResponse] = useState(answer)
+export const RadioQuestion = (function ({ content, itens, answer = 0 }: RadioQuestionProps) {  
+  const { updateQuestion } = useForm()
+
+  function changeAnswerQuestion(event: MouseEvent<HTMLInputElement>) {    
+    const inputValue = (event.target as HTMLInputElement).value    
+    updateQuestion(content, 5, null, inputValue)
+  }
 
   return (
     <Container>
@@ -24,7 +29,7 @@ export const RadioQuestion = (function ({ content, mandatory, itens, answer = 0 
         {itens.map((item, index)=>{
           return (
             <Label  htmlFor={item.description}>
-              <Radio key={index} id={item.description} name="radio" value={item.value} required={mandatory} checked={item.value == response} onClick={()=>setResponse(item.value)}></Radio>
+              <Radio key={index} id={item.description} name="radio" value={item.value} defaultChecked={item.value == answer} onClick={(event: MouseEvent<HTMLInputElement>)=>changeAnswerQuestion(event)}></Radio>
               <Text>{item.description}</Text>
             </Label>
           )
