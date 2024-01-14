@@ -3,6 +3,7 @@
 import { theme } from "@/styles/theme"
 import { Container, StarGroup, Text, Title } from "./styles"
 import { Star } from '@phosphor-icons/react'
+import { useState } from "react"
 
 
 type StarQuestionProps = {
@@ -12,8 +13,11 @@ type StarQuestionProps = {
 }
 
 export const StartQuestion = (function ({ content, mandatory, answer = 0 }: StarQuestionProps) {
+  const [response, setResponse] = useState(answer);
+
   const numberStar = 5;
   const arrayStar : number[]= Array.from({ length: numberStar })
+
 
   return (
     <Container>
@@ -22,7 +26,9 @@ export const StartQuestion = (function ({ content, mandatory, answer = 0 }: Star
       <StarGroup>
         {arrayStar.map((_, index) => {
           return (            
-              <Star key={index} size={40} color={index < answer ? theme.colors.primary : theme.colors.muted} weight="fill" />
+              <Star key={index} size={40} color={index < response ? theme.colors.primary : theme.colors.muted} weight="fill" 
+              onClick={()=>setResponse(index+1)} name="star"
+              />
           )
         })}
         

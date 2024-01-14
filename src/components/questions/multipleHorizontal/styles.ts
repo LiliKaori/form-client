@@ -14,11 +14,14 @@ export const Text = styled.p`
 `
 
 export const Button = styled.button`
-
+  border: 1px solid ${theme.colors.muted};
+  background-color: transparent;
+  border-radius: 1.5em;
+  padding: 0.5em 1em;
 `
 
 export const ButtonGroup = styled.div`
   margin-top: 15px;
   display: flex;
-  gap: 20px
+  gap: 0.5em;
 `

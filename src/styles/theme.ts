@@ -17,7 +17,7 @@ export const theme ={
       GG: '24px',
       G: '18px',
       M: '16px',
-      P: '14px',
+      P: '16px',
       PP: '12px',
     }
   }

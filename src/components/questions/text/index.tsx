@@ -1,6 +1,13 @@
 "use client"
 
+import { Poppins } from "next/font/google";
 import { Container, Text, TextArea } from "./styles"
+
+const poppins = Poppins({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 type TextQuestionProps = {
   content: string;
@@ -12,7 +19,7 @@ export const TextQuestion = (function ({ content, mandatory }: TextQuestionProps
     <Container>
       <Text>{content}</Text>
 
-      <TextArea required={mandatory}/>
+      <TextArea className={poppins.className} required={mandatory} placeholder="Digite aqui..."/>
 
     </Container>
   )

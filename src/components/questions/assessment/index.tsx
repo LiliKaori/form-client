@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react";
 import { Container, Label, Radio, RadioGroup, Text, Title } from "./styles"
 
 type AssessmentQuestionProps = {
@@ -9,6 +10,8 @@ type AssessmentQuestionProps = {
 }
 
 export const AssessmentQuestion = (function ({ content, mandatory, answer = 0 }: AssessmentQuestionProps) {
+  const [response, setResponse] = useState(answer);
+
   const numberGrade = 10;
   const arrayGrade: number[] = Array.from({ length: numberGrade })
   return (
@@ -21,7 +24,7 @@ export const AssessmentQuestion = (function ({ content, mandatory, answer = 0 }:
           return (
             <>
               <Label htmlFor={"option" + grade}>
-                <Radio key={grade} id={"option" + grade} name="grade" value={grade} checked={grade == answer} required={mandatory}></Radio>
+                <Radio key={grade} id={"option" + grade} name="grade" value={grade} checked={grade == response} required={mandatory} onClick={()=>setResponse(grade)}></Radio>
                 <Text>{grade}</Text>
               </Label>
             </>    

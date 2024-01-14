@@ -19,7 +19,7 @@ export const SelectQuestion = (function ({content,mandatory, itens, answer}: Sel
         <Option disabled>{content}</Option>
         {itens.map((item, index) => {
           return (
-            <Option key={index} value={item.value}>{item.description}</Option>
+            <Option key={index} value={item.value} style={{padding:20}}>{item.description} </Option>
           )
         })}
         
