@@ -23,6 +23,7 @@ export const Box = styled.div`
 export const Title = styled.h1`
   color: ${theme.colors.white};
   font-size: ${theme.font.size.XG};
+  font-weight: 600;
   position: relative;
   top: -100px;
   margin: 0 -0.8em -2em;
