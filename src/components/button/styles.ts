@@ -13,5 +13,13 @@ export const Container = styled.button<ContainerProps>`
   padding: 1em 3em;
   width: auto;  
   border: none;
+  cursor: pointer;
 
+  &:hover{
+    opacity: 0.9;
+  }
+
+  &:active{
+    opacity: 0.7;
+  }
 `
