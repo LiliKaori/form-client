@@ -42,10 +42,10 @@ export const Button = (function ({ text, status }: ButtonProps) {
     } else {
       // console.log(questions)
 
-      let missingQuestions: number[]= [];
+      let missingQuestions: number[] = [];
       questions.map((question, index) => {
         // console.log(question.mandatory, question.answerValue, question.answerArray?.length)
-        
+
         if (question.typeQuestion == 6) {
           if (question.mandatory && question.answerArray == undefined || question.mandatory && question.answerArray?.length == 0) {
             missingQuestions.push(index)
@@ -64,7 +64,7 @@ export const Button = (function ({ text, status }: ButtonProps) {
         let text = 'As questões '
 
         missingQuestions.forEach((number, index) => {
-          text += index < missingQuestions.length - 1 ? number + ', ' : number
+          text += index < missingQuestions.length - 1 ? (number + 1) + ', ' : number + 1
         })
         // missingQuestions.map((number)=> text += number,)
         text += " são obrigatórias."
