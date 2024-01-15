@@ -1,6 +1,6 @@
 "use client"
 
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { Container, Label, Radio, RadioGroup, Text, Title } from "./styles"
 import { useForm } from "@/hooks/FormContext";
 
@@ -10,12 +10,17 @@ type AssessmentQuestionProps = {
 }
 
 export const AssessmentQuestion = (function ({ content, answer = 0 }: AssessmentQuestionProps) {  
+  const [response, setResponse] = useState<number | string>(answer)
   const {updateQuestion} = useForm();
 
   function changeAnswerQuestion(event: MouseEvent<HTMLInputElement>) {
-    const inputValue = parseInt((event.target as HTMLInputElement).value, 10)    
-    updateQuestion(content, 2, null, inputValue)
+    const inputValue = parseInt((event.target as HTMLInputElement).value, 10) 
+    setResponse(inputValue)       
   }
+
+  useEffect(()=>{
+    updateQuestion(content, 2, null, response)
+  },[response])
 
   const numberGrade = 10;
   const arrayGrade: number[] = Array.from({ length: numberGrade })
@@ -29,7 +34,7 @@ export const AssessmentQuestion = (function ({ content, answer = 0 }: Assessment
           return (
             
               <Label key={index} htmlFor={"option" + grade}>
-                <Radio id={"option" + grade} name="grade" value={grade} defaultChecked={grade == answer} onClick={(event: MouseEvent<HTMLInputElement>) => changeAnswerQuestion(event)}></Radio>
+              <Radio id={"option" + grade} name="grade" value={grade} defaultChecked={grade == parseInt(answer as string, 10)} onClick={(event: MouseEvent<HTMLInputElement>) => changeAnswerQuestion(event)}></Radio>
                 <Text>{grade}</Text>
               </Label>
             

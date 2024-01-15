@@ -30,7 +30,7 @@ export const SelectQuestion = (function ({ content, itens, answer='' }: SelectQu
   }
 
   useEffect(()=>{
-    updateQuestion(content, 4, null, selectedAnswer)
+    updateQuestion(content, 4, undefined, selectedAnswer)
   },[selectedAnswer])
 
   return (
