@@ -13,21 +13,23 @@ const poppins = Poppins({
 
 type TextQuestionProps = {
   content: string;
-  answer?: number | string;
+  numberQuestion: number;
+  mandatory: boolean;
+  answer?: number | string | null | undefined;
 }
 
-export const TextQuestion = (function ({ content, answer }: TextQuestionProps) {
+export const TextQuestion = (function ({ content, numberQuestion, mandatory, answer }: TextQuestionProps) {
   const { updateQuestion } = useForm()
 
   function changeAnswerQuestion(event: ChangeEvent<HTMLTextAreaElement>) {
-    updateQuestion(content, 3, null, event.target.value)
+    updateQuestion(content, 3, undefined, event.target.value)
   }
 
   return (
     <Container>
-      <Text>{content}</Text>
+      <Text><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Text>
 
-      <TextArea className={poppins.className} defaultValue={answer} placeholder="Digite aqui..." onChange={(event: ChangeEvent<HTMLTextAreaElement>) => changeAnswerQuestion(event)} />
+      <TextArea className={poppins.className} defaultValue={answer != null ? answer : undefined} placeholder="Digite aqui..." onChange={(event: ChangeEvent<HTMLTextAreaElement>) => changeAnswerQuestion(event)} />
 
     </Container>
   )

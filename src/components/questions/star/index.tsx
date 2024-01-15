@@ -8,10 +8,12 @@ import { useForm } from "@/hooks/FormContext"
 
 type StarQuestionProps = {
   content: string;
-  answer?: number | string;
+  numberQuestion: number;
+  mandatory: boolean;
+  answer?: number | string | null | undefined;
 }
 
-export const StartQuestion = (function ({ content, answer = 0 }: StarQuestionProps) {
+export const StarQuestion = (function ({ content, numberQuestion, mandatory, answer = 0 }: StarQuestionProps) {
   const [response, setResponse] = useState(answer);
 
   const {updateQuestion}= useForm()
@@ -28,7 +30,7 @@ export const StartQuestion = (function ({ content, answer = 0 }: StarQuestionPro
   return (
     <Container>
       <Title>Título da pergunta star deve ficar aqui</Title>
-      <Text>{content}</Text>
+      <Text><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Text>
       <StarGroup>
         {arrayStar.map((_, index) => {
           const active = index < parseInt(response as string, 10)

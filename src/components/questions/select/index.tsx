@@ -6,15 +6,17 @@ import { ChangeEvent, useEffect, useState } from "react";
 
 type SelectQuestionProps = {
   content: string;
-  answer?: number | string;
+  numberQuestion: number;
+  mandatory: boolean;
+  answer?: number | string | null | undefined;
   itens: {
     value: number;
     description: string;
   }[];
 }
 
-export const SelectQuestion = (function ({ content, itens, answer='' }: SelectQuestionProps) {
-  const [selectedAnswer, setSelectedAnswer] = useState<number | string>(answer);
+export const SelectQuestion = (function ({ content, itens, numberQuestion, mandatory, answer=null }: SelectQuestionProps) {
+  const [selectedAnswer, setSelectedAnswer] = useState<number | string | null>(answer);
   const { updateQuestion } = useForm();
 
   function changeAnswerQuestion(event: ChangeEvent<HTMLSelectElement>) {
@@ -35,8 +37,8 @@ export const SelectQuestion = (function ({ content, itens, answer='' }: SelectQu
 
   return (
     <Container>
-      <Select defaultValue={selectedAnswer} onChange={(event: ChangeEvent<HTMLSelectElement>) => changeAnswerQuestion(event)}>
-        <Option disabled value=''>{content}</Option>
+      <Select defaultValue={selectedAnswer!= null ? selectedAnswer : undefined} onChange={(event: ChangeEvent<HTMLSelectElement>) => changeAnswerQuestion(event)}>
+        <Option selected disabled><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Option>
         {itens.map((item, index) => {
           return (
             <Option key={index} value={item.value} style={{ padding: 20 }}>{item.description} </Option>

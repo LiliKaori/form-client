@@ -7,8 +7,8 @@ type QuestionProps = {
   typeQuestion: number;
   content: string;
   mandatory: boolean;
-  answerValue?: number | string;
-  answerArray?: number[];
+  answerValue?: number | string | null | undefined;
+  answerArray?: number[] | null;
   horizontal?: boolean;
   itens: {
     value: number;
@@ -16,9 +16,9 @@ type QuestionProps = {
   }[];
 }
 
-type FormContextType = {  
+type FormContextType = {
   questions: QuestionProps[];
-  updateQuestion: (content: string, typeQuestion: number, horizontal?:boolean| undefined, newAnswer?: number | string | number[] ) => void;
+  updateQuestion: (content: string, typeQuestion: number, horizontal?: boolean | undefined, newAnswer?: number | string | number[] | undefined | null) => void;
 }
 
 export const FormContext = createContext<FormContextType | null>(null)
@@ -46,7 +46,7 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
   }, [])
 
 
-  const updateQuestion = (content: string, typeQuestion: number, horizontal: boolean | undefined = undefined, newAnswer?: number | string | number[]) => {
+  const updateQuestion = (content: string, typeQuestion: number, horizontal: boolean | undefined = undefined, newAnswer?: number | string | number[] | null) => {
     //Método 1
     questions.filter((question: QuestionProps) => {
       // console.log(typeof newAnswer == "number", newAnswer)
@@ -65,7 +65,7 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
       }
       // console.log("não entrou em nenhum if")
     })
-    
+
 
     //Método 2
     // console.log(typeof newAnswer == "number", newAnswer)
@@ -89,7 +89,7 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
     //   }
 
     //   updatedQuestions[index] = updatedQuestion;
-      
+
     //   setQuestions(updatedQuestions);
     // }
 

@@ -44,7 +44,7 @@ export const Button = (function ({ text, status }: ButtonProps) {
 
       let missingQuestions: number[] = [];
       questions.map((question, index) => {
-        // console.log(question.mandatory, question.answerValue, question.answerArray?.length)
+        console.log(index, question.mandatory, question.answerValue, question.answerArray?.length)
 
         if (question.typeQuestion == 6) {
           if (question.mandatory && question.answerArray == undefined || question.mandatory && question.answerArray?.length == 0) {
@@ -67,7 +67,7 @@ export const Button = (function ({ text, status }: ButtonProps) {
           text += index < missingQuestions.length - 1 ? (number + 1) + ', ' : number + 1
         })
         // missingQuestions.map((number)=> text += number,)
-        text += " são obrigatórias."
+        text += " precisam ser respondidas."
 
         Swal.fire({
           title: 'Atenção!',

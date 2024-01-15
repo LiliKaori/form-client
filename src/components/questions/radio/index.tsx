@@ -6,25 +6,27 @@ import { useForm } from "@/hooks/FormContext";
 
 type RadioQuestionProps = {
   content: string;
-  answer?: number | string;
+  numberQuestion: number;
+  mandatory: boolean;
+  answer?: number | string | null | undefined;
   itens: {
     value: number;
     description: string;
   }[];
 }
 
-export const RadioQuestion = (function ({ content, itens, answer = 0 }: RadioQuestionProps) {  
+export const RadioQuestion = (function ({ content, itens, numberQuestion, mandatory, answer = 0 }: RadioQuestionProps) {  
   const { updateQuestion } = useForm()
 
   function changeAnswerQuestion(event: MouseEvent<HTMLInputElement>) {    
     const inputValue = (event.target as HTMLInputElement).value    
-    updateQuestion(content, 5, null, inputValue)
+    updateQuestion(content, 5, undefined, inputValue)
   }
 
   return (
     <Container>
 
-      <Text>{content}</Text>
+      <Text><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Text>
       <RadioGroup>
         {itens.map((item, index)=>{
           return (

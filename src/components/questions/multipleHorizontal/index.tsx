@@ -6,15 +6,17 @@ import { useEffect, useState } from "react";
 
 type MultipleHorizontalProps = {
   content: string;
-  answer?: number[];
+  numberQuestion: number;
+  mandatory: boolean;
+  answer?: number[] | null;
   itens: {
     value: number;
     description: string;
   }[];
 }
 
-export const MultipleHorizontalQuestion = (function ({content, itens, answer=[]}:MultipleHorizontalProps){
-  const [responses, setResponses] = useState<number[]>([...answer]);
+export const MultipleHorizontalQuestion = (function ({ content, itens, numberQuestion, mandatory, answer=[]}:MultipleHorizontalProps){
+  const [responses, setResponses] = useState<number[]>(answer != null ? [...answer] : []);
   const {updateQuestion} = useForm()
 
   function changeAnswerQuestion(optionClicked :number) {
@@ -32,7 +34,7 @@ export const MultipleHorizontalQuestion = (function ({content, itens, answer=[]}
   return(
     <Container>
           
-      <Text>{content}</Text>
+      <Text><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Text>
       <ButtonGroup>
         {itens.map((item, index)=>{
           return(

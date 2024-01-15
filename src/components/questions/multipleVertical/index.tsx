@@ -5,16 +5,18 @@ import { Checkbox, CheckboxGroup, Container, Label, Text } from "./styles"
 import { ChangeEvent, useEffect, useState } from "react";
 
 type MultipleVerticalProps = {
-  content: string;  
+  content: string;
+  numberQuestion:number;
+  mandatory: boolean;
   itens: {
     value: number;
     description: string;
   }[];
-  answer?: number[];
+  answer?: number[] | null;
 }
 
-export const MultipleVerticalQuestion = (function ({ content, itens, answer=[]}: MultipleVerticalProps) {
-  const [responses, setResponses] = useState<number[]>([...answer])
+export const MultipleVerticalQuestion = (function ({ content, itens, numberQuestion, mandatory, answer=[]}: MultipleVerticalProps) {
+  const [responses, setResponses] = useState<number[]>(answer != null ? [...answer] : [])
   const { updateQuestion } = useForm()
 
   function changeAnswerQuestion(event: ChangeEvent<HTMLInputElement>) {
@@ -34,12 +36,12 @@ export const MultipleVerticalQuestion = (function ({ content, itens, answer=[]}:
   return (
     <Container>
 
-      <Text>{content}</Text>
+      <Text><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Text>
       <CheckboxGroup>
         {itens.map((item, index) => {
           return (
             <Label key={index} htmlFor={"option_" + item.value}>
-              <Checkbox id={"option_" + item.value} value={item.value} onChange={(event: ChangeEvent<HTMLInputElement>) => changeAnswerQuestion(event)} defaultChecked={answer.includes(item.value)}></Checkbox>
+              <Checkbox id={"option_" + item.value} value={item.value} onChange={(event: ChangeEvent<HTMLInputElement>) => changeAnswerQuestion(event)} defaultChecked={answer != null ? answer.includes(item.value) : undefined}></Checkbox>
               <Text>{item.description}</Text>
             </Label>
           )

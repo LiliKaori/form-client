@@ -6,11 +6,13 @@ import { useForm } from "@/hooks/FormContext";
 
 type AssessmentQuestionProps = {  
   content: string;
-  answer?: number | string;
+  numberQuestion: number;
+  mandatory: boolean;
+  answer?: number | string | null | undefined;
 }
 
-export const AssessmentQuestion = (function ({ content, answer = 0 }: AssessmentQuestionProps) {  
-  const [response, setResponse] = useState<number | string>(answer)
+export const AssessmentQuestion = (function ({ content, numberQuestion, mandatory, answer = 0 }: AssessmentQuestionProps) {  
+  const [response, setResponse] = useState<number | string | null | undefined>(answer)
   const {updateQuestion} = useForm();
 
   function changeAnswerQuestion(event: MouseEvent<HTMLInputElement>) {
@@ -27,7 +29,7 @@ export const AssessmentQuestion = (function ({ content, answer = 0 }: Assessment
   return (
     <Container>
       <Title>Título da pergunta de avaliação deve ficar aqui</Title>
-      <Text>{content}</Text>
+      <Text><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Text>
       <RadioGroup key={Math.random()}>
         {arrayGrade.map((_, index) => {
           const grade: number = index + 1;
