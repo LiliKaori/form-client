@@ -13,12 +13,12 @@ export const theme ={
   },
   font: {
     size: {
-      XG: '40px',
-      GG: '24px',
-      G: '18px',
-      M: '16px',
-      P: '16px',
-      PP: '12px',
+      XG: '2.5rem',
+      GG: '1.5rem',
+      G: '1.125rem',
+      M: '1rem',
+      P: '1rem',
+      PP: '0.5rem',
     }
   }
 }

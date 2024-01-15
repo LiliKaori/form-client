@@ -1,7 +1,12 @@
 "use client"
 
 import { theme } from "@/styles/theme";
+import { IconProps, Star } from "@phosphor-icons/react";
 import styled from "styled-components";
+
+type StarProps = IconProps & {
+  $active: boolean;
+}
 
 export const Container = styled.div`
   background-color: transparent;
@@ -21,5 +26,11 @@ export const Text = styled.p`
 export const StarGroup = styled.div`
   margin-top: 20px;
   display: flex;
-  gap: 20px;
+  justify-content: space-evenly;
+`
+
+export const Icon = styled(Star).attrs({ weight: "fill" })<StarProps>`
+  width: 2.5em;
+  height: 2.5em;
+  color: ${props => props.$active ? theme.colors.primary : theme.colors.muted};
 `

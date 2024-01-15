@@ -11,7 +11,7 @@ export const Container = styled.div`
 
 export const Box = styled.div`
   background-color: ${theme.colors.white};
-  margin: -4em auto 1.5em;
+  margin: -4em 0 1.5em;
   max-width: 700px;
   border-radius: 0.5em;
   padding: 2em;
@@ -27,6 +27,7 @@ export const Title = styled.h1`
   position: relative;
   top: -100px;
   margin: 0 -0.8em -2em;
+  white-space: nowrap;
 
 `
 

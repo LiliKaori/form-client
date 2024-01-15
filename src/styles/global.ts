@@ -13,7 +13,20 @@ export default createGlobalStyle`
 }
 
 body{    
+    width: 100%;
     background-color: ${theme.colors.ligth};
+}
+
+@media (max-width: 560px) {
+    html{
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 300px) {
+    html{
+        font-size: 8px;
+    }
 }
 
 `

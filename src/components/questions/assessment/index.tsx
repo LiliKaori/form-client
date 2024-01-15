@@ -19,7 +19,7 @@ export const AssessmentQuestion = (function ({ content, answer = 0 }: Assessment
   }
 
   useEffect(()=>{
-    updateQuestion(content, 2, null, response)
+    updateQuestion(content, 2, undefined, response)
   },[response])
 
   const numberGrade = 10;

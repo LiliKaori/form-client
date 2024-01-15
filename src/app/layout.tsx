@@ -23,9 +23,13 @@ export default function RootLayout({
   
 
   return (
-    <html lang="en">
+    <>
       <GlobalStyles />
-      <body className={ poppins.className }>{children}</body>      
-    </html>
+      <html lang="en">
+
+        <body className={poppins.className}>{children}</body>
+      </html>
+    </>
+    
   )
 }

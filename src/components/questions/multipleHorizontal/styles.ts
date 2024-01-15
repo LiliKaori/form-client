@@ -18,6 +18,7 @@ export const Text = styled.p`
 `
 
 export const Button = styled.button<ButtonProps>`
+  font-size: ${theme.font.size.M};
   border: 1px solid ${theme.colors.muted};
   background-color: ${props => props.$selected ? theme.colors.gray : "transparent"};
   color: ${props => props.$selected ? theme.colors.white : theme.colors.dark};
@@ -27,7 +28,8 @@ export const Button = styled.button<ButtonProps>`
 `
 
 export const ButtonGroup = styled.div`
-  margin-top: 15px;
+  margin-top: 1em;
   display: flex;
   gap: 0.5em;
+  flex-wrap: wrap;
 `
