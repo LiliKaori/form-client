@@ -8,11 +8,11 @@ type AssessmentQuestionProps = {
   content: string;
   numberQuestion: number;
   mandatory: boolean;
-  answer?: number | string | null | undefined;
+  answer?: number | string | number[] | null | undefined;
 }
 
 export const AssessmentQuestion = (function ({ content, numberQuestion, mandatory, answer = 0 }: AssessmentQuestionProps) {  
-  const [response, setResponse] = useState<number | string | null | undefined>(answer)
+  const [response, setResponse] = useState<number | string | null | undefined>(typeof answer != "object" ? answer : 0)
   const {updateQuestion} = useForm();
 
   function changeAnswerQuestion(event: MouseEvent<HTMLInputElement>) {

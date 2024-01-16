@@ -12,11 +12,11 @@ type MultipleVerticalProps = {
     value: number;
     description: string;
   }[];
-  answer?: number[] | null;
+  answer?: string | number | number[] | null;
 }
 
 export const MultipleVerticalQuestion = (function ({ content, itens, numberQuestion, mandatory, answer=[]}: MultipleVerticalProps) {
-  const [responses, setResponses] = useState<number[]>(answer != null ? [...answer] : [])
+  const [responses, setResponses] = useState<number[]>(Array.isArray(answer) && answer.every(item => typeof item === 'number') ? [...answer] : [])
   const { updateQuestion } = useForm()
 
   function changeAnswerQuestion(event: ChangeEvent<HTMLInputElement>) {
@@ -41,7 +41,7 @@ export const MultipleVerticalQuestion = (function ({ content, itens, numberQuest
         {itens.map((item, index) => {
           return (
             <Label key={index} htmlFor={"option_" + item.value}>
-              <Checkbox id={"option_" + item.value} value={item.value} onChange={(event: ChangeEvent<HTMLInputElement>) => changeAnswerQuestion(event)} defaultChecked={answer != null ? answer.includes(item.value) : undefined}></Checkbox>
+              <Checkbox id={"option_" + item.value} value={item.value} onChange={(event: ChangeEvent<HTMLInputElement>) => changeAnswerQuestion(event)} defaultChecked={Array.isArray(answer) && answer.every(item => typeof item === 'number') ? answer.includes(item.value) : undefined}></Checkbox>
               <Text>{item.description}</Text>
             </Label>
           )

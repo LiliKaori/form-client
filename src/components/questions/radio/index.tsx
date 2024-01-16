@@ -8,7 +8,7 @@ type RadioQuestionProps = {
   content: string;
   numberQuestion: number;
   mandatory: boolean;
-  answer?: number | string | null | undefined;
+  answer?: number | string | number[] | null | undefined;
   itens: {
     value: number;
     description: string;

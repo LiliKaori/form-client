@@ -1,7 +1,8 @@
 import { theme } from "@/styles/theme";
+import { ComponentProps } from "react";
 import styled from "styled-components";
 
-type ContainerProps = {  
+type ContainerProps = ComponentProps<'button'> & {  
   $type?: "success" | "error" | undefined;
 }
 

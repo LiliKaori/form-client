@@ -18,8 +18,7 @@ export const Form = (function () {
     typeQuestion: number;
     content: string;
     mandatory: boolean;
-    answerValue?: number | string | null | undefined;
-    answerArray?: number[] | null;
+    answerValue?: number | string | number[] | null | undefined;
     horizontal?: boolean;
     itens: {
       value: number;
@@ -44,9 +43,9 @@ export const Form = (function () {
             } else if (question.typeQuestion == 5) {
               return (<RadioQuestion key={index} content={question.content} numberQuestion={index + 1} mandatory={question.mandatory} itens={question.itens} answer={question.answerValue} />)
             } else if (question.typeQuestion == 6 && question.horizontal) {
-              return (<MultipleHorizontalQuestion key={index} content={question.content} itens={question.itens} numberQuestion={index + 1} mandatory={question.mandatory} answer={question.answerArray} />)
+              return (<MultipleHorizontalQuestion key={index} content={question.content} itens={question.itens} numberQuestion={index + 1} mandatory={question.mandatory} answer={question.answerValue} />)
             } else {
-              return (<MultipleVerticalQuestion key={index} content={question.content} itens={question.itens} numberQuestion={index + 1} mandatory={question.mandatory} answer={question.answerArray} />)
+              return (<MultipleVerticalQuestion key={index} content={question.content} itens={question.itens} numberQuestion={index + 1} mandatory={question.mandatory} answer={question.answerValue} />)
             }
 
           })

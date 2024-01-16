@@ -7,8 +7,7 @@ type QuestionProps = {
   typeQuestion: number;
   content: string;
   mandatory: boolean;
-  answerValue?: number | string | null | undefined;
-  answerArray?: number[] | null;
+  answerValue?: number | string | number[] | null | undefined;
   horizontal?: boolean;
   itens: {
     value: number;
@@ -34,8 +33,7 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
 
     async function loadQuestions() {
       const { data } = await apiFrontTest.get(paths.list)
-      // console.log(data.itens)
-      // console.log(data)
+      
       if (!data.error) {
         setQuestions(data.itens)
       }
@@ -47,53 +45,17 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
 
 
   const updateQuestion = (content: string, typeQuestion: number, horizontal: boolean | undefined = undefined, newAnswer?: number | string | number[] | null) => {
-    //Método 1
+    
     questions.filter((question: QuestionProps) => {
-      // console.log(typeof newAnswer == "number", newAnswer)
-      // console.log("Começar ifs", question.horizontal == horizontal)
+      
       if (question.content === content && question.typeQuestion === typeQuestion && question.horizontal == horizontal) {
-        // console.log("primeiro if")
-        if (typeof newAnswer == "number" || typeof newAnswer == "string") {
-          // console.log("segundo if")
+        
           question.answerValue = newAnswer
-        } else {
-          // console.log("else")
-          question.answerArray = newAnswer
-        }
-        // console.log("atualizando questions")
+        
         setQuestions([...questions])
       }
-      // console.log("não entrou em nenhum if")
+      
     })
-
-
-    //Método 2
-    // console.log(typeof newAnswer == "number", newAnswer)
-    // const index = questions.findIndex((question: QuestionProps) =>
-    //   question.content === content &&
-    //   question.typeQuestion === typeQuestion &&
-    //   question.horizontal === horizontal
-    // );
-
-    // if (index !== -1) {
-    //   const updatedQuestions: QuestionProps[] = [...questions];
-
-    //   const updatedQuestion ={
-    //     ...updatedQuestions[index],
-    //   }
-
-    //   if (typeof newAnswer == "number" || typeof newAnswer == "string") {
-    //     updatedQuestion.answerValue = newAnswer;
-    //   } else {
-    //     updatedQuestion.answerArray = newAnswer;
-    //   }
-
-    //   updatedQuestions[index] = updatedQuestion;
-
-    //   setQuestions(updatedQuestions);
-    // }
-
-    // console.log(questions)
   }
 
 
@@ -101,8 +63,6 @@ export const FormProvider: React.FC<ReactProps> = ({ children }) => {
     <FormContext.Provider value={{ questions, updateQuestion }}>
       {children}
     </FormContext.Provider>
-    // .Provider value= {{form}}></FormContext.Provider>
-
   )
 
 

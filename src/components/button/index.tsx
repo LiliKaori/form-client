@@ -17,8 +17,6 @@ export const Button = (function ({ text, status }: ButtonProps) {
 
   async function send(status: "success" | "error" | undefined) {
 
-    // console.log(status)
-
     const path = (status === "success") ? paths.sendSuccess : (status === "error") ? paths.sendError : "/";
     const { data } = await (status === "success" || status === "error" ? apiFrontTest.get(path) : apiPost.post("/"));
 
@@ -30,7 +28,7 @@ export const Button = (function ({ text, status }: ButtonProps) {
         confirmButtonText: 'Ok',
         confirmButtonColor: theme.colors.error
       })
-      // console.log(data.error)
+      
     } else if (status) {
       Swal.fire({
         title: 'Pesquisa enviada com sucesso!',
@@ -38,35 +36,34 @@ export const Button = (function ({ text, status }: ButtonProps) {
         confirmButtonText: 'Ok',
         confirmButtonColor: theme.colors.success
       })
-      // console.log("sucesso")
+      
     } else {
-      // console.log(questions)
 
       let missingQuestions: number[] = [];
       questions.map((question, index) => {
-        console.log(index, question.mandatory, question.answerValue, question.answerArray?.length)
+        console.log(index, question.mandatory, question.answerValue)
 
         if (question.typeQuestion == 6) {
-          if (question.mandatory && question.answerArray == undefined || question.mandatory && question.answerArray?.length == 0) {
+          if (question.mandatory && (question.answerValue === undefined ||
+            (typeof question.answerValue === 'string' && question.answerValue.length === 0) ||
+            (Array.isArray(question.answerValue) && question.answerValue.length === 0))) {
             missingQuestions.push(index)
-            // console.log("Falta preencher pergunta número " + index)
           }
         } else {
           if (question.mandatory && question.answerValue == null) {
-            missingQuestions.push(index)
-            // console.log("Falta preencher pergunta número " + index)
+            missingQuestions.push(index)            
           }
         }
       })
 
-      // console.log(missingQuestions)
+      
       if (missingQuestions.length != 0) {
         let text = 'As questões '
 
         missingQuestions.forEach((number, index) => {
           text += index < missingQuestions.length - 1 ? (number + 1) + ', ' : number + 1
         })
-        // missingQuestions.map((number)=> text += number,)
+        
         text += " precisam ser respondidas."
 
         Swal.fire({
@@ -84,10 +81,7 @@ export const Button = (function ({ text, status }: ButtonProps) {
           confirmButtonColor: theme.colors.success
         })
       }
-
     }
-    // console.log(data)
-
   }
 
 

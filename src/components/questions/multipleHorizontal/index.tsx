@@ -8,7 +8,7 @@ type MultipleHorizontalProps = {
   content: string;
   numberQuestion: number;
   mandatory: boolean;
-  answer?: number[] | null;
+  answer?: string | number | number[] | null;
   itens: {
     value: number;
     description: string;
@@ -16,7 +16,7 @@ type MultipleHorizontalProps = {
 }
 
 export const MultipleHorizontalQuestion = (function ({ content, itens, numberQuestion, mandatory, answer=[]}:MultipleHorizontalProps){
-  const [responses, setResponses] = useState<number[]>(answer != null ? [...answer] : []);
+  const [responses, setResponses] = useState<number[]>(Array.isArray(answer) && answer.every(item => typeof item === 'number') ? [...answer] : []);
   const {updateQuestion} = useForm()
 
   function changeAnswerQuestion(optionClicked :number) {

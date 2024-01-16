@@ -15,7 +15,7 @@ type TextQuestionProps = {
   content: string;
   numberQuestion: number;
   mandatory: boolean;
-  answer?: number | string | null | undefined;
+  answer?: number | string | number[] | null | undefined;
 }
 
 export const TextQuestion = (function ({ content, numberQuestion, mandatory, answer }: TextQuestionProps) {
@@ -29,7 +29,7 @@ export const TextQuestion = (function ({ content, numberQuestion, mandatory, ans
     <Container>
       <Text><span>{numberQuestion + ". "}</span>{content} {mandatory ? "" : <span>(opicional)</span>}</Text>
 
-      <TextArea className={poppins.className} defaultValue={answer != null ? answer : undefined} placeholder="Digite aqui..." onChange={(event: ChangeEvent<HTMLTextAreaElement>) => changeAnswerQuestion(event)} />
+      <TextArea className={poppins.className} defaultValue={typeof answer != "object" ? answer : undefined} placeholder="Digite aqui..." onChange={(event: ChangeEvent<HTMLTextAreaElement>) => changeAnswerQuestion(event)} />
 
     </Container>
   )
